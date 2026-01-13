@@ -44,53 +44,24 @@
     </div>
 
     <script type='text/javascript'>
-        // Add status logging
-        function updateStatus(message, type) {
-            const statusEl = document.getElementById('status');
-            statusEl.textContent = message;
-            statusEl.className = 'status ' + type;
-            console.log('[Chat Widget] ' + message);
-        }
+	function initEmbeddedMessaging() {
+		try {
+			embeddedservice_bootstrap.settings.language = 'en_US'; // For example, enter 'en' or 'en-US'
 
-        function initEmbeddedMessaging() {
-            console.log('[Chat Widget] Initializing Embedded Messaging...');
-            updateStatus('Initializing chat widget...', 'loading');
-            
-            try {
-                if (typeof embeddedservice_bootstrap === 'undefined') {
-                    throw new Error('embeddedservice_bootstrap is not defined');
-                }
+			embeddedservice_bootstrap.init(
+				'00DKZ00000BOdIL',
+				'Github_Site',
+				'https://co1754479384179.my.site.com/ESWGithubSite1768292051414',
+				{
+					scrt2URL: 'https://co1754479384179.my.salesforce-scrt.com'
+				}
+			);
+		} catch (err) {
+			console.error('Error loading Embedded Messaging: ', err);
+		}
+	};
+</script>
+<script type='text/javascript' src='https://co1754479384179.my.site.com/ESWGithubSite1768292051414/assets/js/bootstrap.min.js' onload='initEmbeddedMessaging()'></script>
 
-                embeddedservice_bootstrap.settings.language = 'en_US'; // For example, enter 'en' or 'en-US'
-    
-                embeddedservice_bootstrap.init(
-                    '00DKZ00000BOdIL',
-                    'product_agent_chat',
-                    'https://co1754479384179.my.site.com/ESWproductagentchat1768286945615',
-                    {
-                        scrt2URL: 'https://co1754479384179.my.salesforce-scrt.com'
-                    }
-                );
-                
-                console.log('[Chat Widget] Initialization complete');
-                updateStatus('Chat widget loaded successfully! Look for the chat button in the bottom right corner.', 'success');
-            } catch (err) {
-                console.error('[Chat Widget] Error loading Embedded Messaging: ', err);
-                updateStatus('Error loading chat widget: ' + err.message, 'error');
-            }
-        }
-
-        // Error handler for script loading
-        window.addEventListener('error', function(e) {
-            if (e.target.tagName === 'SCRIPT') {
-                console.error('[Chat Widget] Failed to load script:', e.target.src);
-                updateStatus('Failed to load chat script. Check console for details.', 'error');
-            }
-        }, true);
-    </script>
-    <script type='text/javascript' 
-            src='https://co1754479384179.my.site.com/ESWproductagentchat1768286945615/assets/js/bootstrap.min.js' 
-            onload='initEmbeddedMessaging()'
-            onerror='updateStatus("Failed to load bootstrap.min.js - check network connection and URL", "error")'></script>
 </body>
 </html>
